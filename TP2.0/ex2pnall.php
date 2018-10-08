@@ -41,12 +41,13 @@
 						<option value="<?php echo $ligne["NO_COMMANDE"] ?>"><?php echo $ligne["NO_COMMANDE"] ?></option>
 				<?php } ?>
 			</select>
+			<input type="submit" value="Ok">
 		</form>
-		<input type="submit" value="Ok">
 	 <?php }
-	      if (empty($_POST["ChoixArticle"]) && !empty($_POST["ChoixCommande"]) && !empty($_POST["ChoixClient"])) { ?>
+	   if (empty($_POST["ChoixArticle"]) && !empty($_POST["ChoixCommande"]) && !empty($_POST["ChoixClient"])) { ?>
 		<form action = "#" method = "post">
-			<p>Nom article : <?php echo $_POST["ChoixArticle"] ?></p>
+			<p>Nom client : <?php echo $_POST["ChoixClient"] ?></p>
+			<p>Nom article : <?php echo $_POST["ChoixCommande"] ?></p>
 			<?php $sqlarticle = "SELECT NO_ARTICLE , LIB_ARTICLE FROM ARTICLE";
 			$result = mysqli_query($db,$sqlarticle); ?>
 			  <select name="ChoixArticle">
@@ -55,7 +56,7 @@
 						<option value="<?php echo $ligne["NO_ARTICLE"] ?>"><?php echo $ligne["LIB_ARTICLE"] ?></option>
 				<?php } ?>
 			</select>
+			<input type="submit" value="Ok">
 		</form>
-		<input type="submit" value="Ok">
 	 <?php } ?>
 </body>
