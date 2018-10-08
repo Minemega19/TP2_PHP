@@ -13,11 +13,12 @@
 	
     <?php
       $db = mysqli_connect ("localhost","root","");
-        mysqli_select_db($db,"client"); 
+        mysqli_select_db($db,"client");
     ?>
-	
+
 	<?php
-      if (empty($_POST["ChoixClient"]) && $_SESSION['IDCLIENT']) { ?>
+      if (empty($_POST["ChoixClient"])) { ?>
+		<script>console.log("1")</script>
 	    <form action = "#" method = "post">
 			<?php $sql = "SELECT NOM_CLIENT, NO_CLIENT FROM CLIENT";
       			 $result = mysqli_query($db,$sql); ?>
@@ -31,6 +32,7 @@
 		</form>
 	 <?php }
       if (empty($_POST["ChoixCommande"]) && !empty($_POST["ChoixClient"])) { ?>
+		<script>console.log("2")</script>
 		<form action = "#" method = "post">
 			<?php $_SESSION['IDCLIENT'] = $_POST["ChoixClient"]; ?>
 			<p>Nom client : <?php echo $_POST["ChoixClient"] ?></p>
@@ -46,6 +48,7 @@
 		</form>
 	 <?php }
 	   if (empty($_POST["ChoixArticle"]) && !empty($_POST["ChoixCommande"]) && !empty($_SESSION['IDCLIENT'])) { ?>
+		<script>console.log("3")</script>
 		<form action = "#" method = "post">
 <!--
 			<script>
@@ -67,6 +70,7 @@
 		</form>
 	 <?php }
 	   if (!empty($_POST["ChoixArticle"]) && !empty($_SESSION['IDCOMMANDE']) && !empty($_SESSION['IDCLIENT'])) { ?>
+		<script>console.log("4")</script>
 		<form action = "#" method = "post">
 <!--
 			<script>
@@ -79,13 +83,18 @@
 			<p>Num article : <?php echo $_SESSION['IDARTICLE'] ?></p>
 			<?php $sqlarticle = "SELECT NO_ARTICLE , LIB_ARTICLE FROM ARTICLE";
 			$result = mysqli_query($db,$sqlarticle); ?>
-			  <select name="ChoixArticle">
-				<?php
-					while($ligne = mysqli_fetch_array($result)){           ?>
-						<option value="<?php echo $ligne["NO_ARTICLE"] ?>"><?php echo $ligne["LIB_ARTICLE"] ?></option>
-				<?php } ?>
-			</select>
-			<input type="submit" value="Ok">
+			  <table border="3">
+				<tr>
+				  <th>N' Article</th>
+				  <th>Nom Article</th>
+				  <th>Quantité commandée</th>
+				  <th>Quantité livrée</th>
+				  <tr>
+				  <th><?php echo $_SESSION['IDARTICLE'] ?></th>
+				  <th><?php echo $_SESSION['IDCOMMANDE'] ?></th>
+				  <th><?php echo $_SESSION['IDCLIENT'] ?></th>
+				</tr>
+			</table>
 		</form>
 	 <?php } ?>
 </body>
